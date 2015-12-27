@@ -64,7 +64,7 @@ directory node['fileexchange']['data_dir'] do
 end
 
 # ftp
-include_recipe 'simple_vsftpd'
+include_recipe 'vsftpd'
 
 # rsync
 template node['fileexchange']['rsyncd']['conf_generator'] do

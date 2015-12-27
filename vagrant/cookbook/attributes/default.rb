@@ -29,7 +29,7 @@ default['fileexchange']['auth_basic_file'] = '/opt/filexchange/htpasswd'
 
 default['apache']['gid'] = 48
 
-default['simple_vsftpd']['config'] = {
+default['vsftpd']['config'] = {
   'anonymous_enable' => 'YES',
   'write_enable' => 'YES',
   'xferlog_enable' => 'YES',
