@@ -16,12 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# for vagrant user only
-sudo 'vagrant' do
-  user 'vagrant'
-  nopasswd true
-end
-
 # remove unused local packages in PD
 package ['rpcbind', 'nfs-utils'] do
   action :remove
