@@ -14,10 +14,6 @@ default['yum']['ius-archive']['enabled'] = true
 # Python
 default['python']['pip_location'] = '/usr/bin/pip2.7'
 
-# app
-#default['fileexchange']['data_bag'] = 'apps'
-#default['fileexchange']['data_bag_item'] = 'fileshare'
-
 default['fileexchange']['rsyncd']['conf_file'] = '/etc/rsyncd.conf'
 default['fileexchange']['rsyncd']['conf_generator'] = '/usr/bin/rsyncd.sh'
 default['fileexchange']['rsyncd']['log_dir'] = '/var/log/rsync'
