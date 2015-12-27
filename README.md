@@ -16,11 +16,19 @@ This service usefull for situation when you need to upload/download files with p
 Use http://__IP__/ to access to File Exchange.
 
 ## Install
+
+Start Vagrant
+
+```bash
+git clone https://github.com/scopenco/fileexchange.git
+cd vagrant
+vagrant up
+vagrant ssh
+```
+
 Init sqlite schema
 
 ```bash
-vagrant up
-vagrant ssh
 sqlite3 database.db < schema.sql
 ```
 
