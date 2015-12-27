@@ -266,7 +266,7 @@ def index():
 
 
 @app.errorhandler(404)
-def page_not_found():
+def page_not_found(error):
     ''' show 404 error page '''
     flash('Not found!')
     return render_template('layout.html'), 404
