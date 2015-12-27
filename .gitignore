@@ -1,0 +1,30 @@
+# Editors etc
+*~
+*#
+.#*
+\#*#
+.*.sw[a-z]
+*.un~
+*.pyc
+*.pyc~
+
+# Berks
+/Berksfile.lock
+/cookbook/Berksfile.lock
+
+# Vagrant
+/.vagrant/
+/Vagrantfile.local
+
+# Test Kitchen
+/.kitchen/
+/.kitchen.local.yml
+
+# FileExchange
+database.db
+htpasswd
+config.py
+
+.bundle
+.kitchen
+.vagrant
