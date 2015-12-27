@@ -1,0 +1,50 @@
+LoadModule wsgi_module modules/python27-mod_wsgi.so
+
+IndexOptions Charset=UTF-8 FancyIndexing SuppressColumnSorting SuppressIcon SuppressDescription VersionSort NameWidth=* HTMLTable
+IndexIgnore .??*
+
+DavDepthInfinity Off
+
+DirectorySlash Off
+
+CustomLog <%= node['apache']['log_dir'] %>/<%= node['apache']['access_log'] %> combined
+
+DocumentRoot "<%= @data_path %>"
+
+<Directory "/">
+    Options None
+    AllowOverride None
+</Directory>
+
+<Directory "<%= @data_path %>">
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    Dav On
+    ForceType application/octet-stream
+
+    HeaderName /header.html
+    ReadmeName /footer.html
+    ErrorDocument 404 /404.html
+</Directory>
+
+Alias /header.html <%= @app_path %>/static/header.html
+Alias /footer.html <%= @app_path %>/static/footer.html
+Alias /404.html <%= @app_path %>/static/404.html
+Alias /static/ <%= @app_path %>/static/
+<directory "<%= @app_path %>/static">
+    order allow,deny
+    allow from all
+</directory>
+
+WSGIDaemonProcess fileshare user=<%= @user %> group=<%= @group %> threads=5
+WSGIScriptAlias /fe <%= @app_path %>/wsgi.py
+WSGIPassAuthorization On
+<directory "<%= @app_path %>">
+    WSGIProcessGroup fileshare
+    order allow,deny
+    allow from all
+</directory>
+
+RewriteMap lower int:tolower
+RewriteEngine On
+RewriteRule ^/$ /fe [R,L]

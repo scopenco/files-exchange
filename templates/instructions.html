@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% block body %}
+<style type="text/css">
+div.info  {
+    background-color: #e4ffe0;
+    margin-bottom:  10pt;
+    padding-left: 10pt;
+    padding-top: 5pt;
+    padding-bottom: 10pt;
+}
+.info form {
+    background-color: #e4ffe0;
+    margin-bottom:  0pt;
+    margin-top:  0pt;
+    border: 0pt;
+    padding-left: 20pt;
+}
+.info ol {
+    margin: 0pt;
+}
+.info ul {
+    margin: 0pt;
+    padding-left: 20pt;
+}
+.info li {
+    margin: 0pt;
+}
+.info input {
+    background-color: #ccffcc;
+    margin: 0pt;
+    border-color: #e4ffe0;
+    border-style: solid;
+    border: 1pt:
+    padding-left: 10pt;
+}
+</style> 
+
+<div class="row">
+     <div class="one-first columns info">
+            Please use any of following URLs to upload content:
+            <ol>
+                    <li>
+                        <form action="" name="url1_form" id="url1_form" onclick="javascript:document.url1_form.url1_link.focus();document.url1_form.url1_link.select()">
+                          <input name="url1_link" type="text" value="\\{{ request.host }}\DavWWWRoot\{{ share_hash }}" style="width: 80%" readonly>
+                        </form>
+                    </li>
+                    <li>
+                        <form action="" name="url2_form" id="url2_form" onclick="javascript:document.url2_form.url2_link.focus();document.url2_form.url2_link.select()">
+                          <input name="url2_link" type="text" value="ftp://{{ request.host }}/{{ share_hash }}/" style="width: 80%" readonly>
+                        </form>
+                    </li>
+                    <li>
+                        <form action="" name="url3_form" id="url3_form" onclick="javascript:document.url3_form.url3_link.focus();document.url3_form.url3_link.select()">
+                          <input name="url3_link" type="text" value="http://{{ request.host }}/{{ share_hash }}/" style="width: 80%" readonly>
+                        </form>
+                    </li>
+                    <li>
+                        <form action="" name="url4_form" id="url4_form" onclick="javascript:document.url4_form.url4_link.focus();document.url4_form.url4_link.select()">
+                          <input name="url4_link" type="text" value="rsync://{{ request.host }}/{{ share_hash }}/" style="width: 80%" readonly>
+                        </form>
+                    </li>
+            </ol>
+            Read only access is available at <a href="http://{{ request.host }}/{{ share_hash }}/" target="_new">http://{{ request.host }}/{{ share_hash }}/</a><br>
+            <b>Notes:</b>
+            <ul>
+                  <li>No password is required to access links.</li>
+                  <li>The shared folder will expire in {{ expire_days }} days.</li>
+            </ul>
+    </div>
+    <form method="POST">
+        <button type="submit" name="readonly" value="yes" class="button-primary" onclick="return confirm('Are you sure you have finished uploading content?')">
+            Make the folder read-only</button>
+        <button type="submit" name="delete" value="yes" class="button-primary" onclick="return confirm('Are you sure you want to delete the folder and all its content?')">
+            Delete folder</button>
+    </form>
+</div>
+{% endblock %}

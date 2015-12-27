@@ -1,0 +1,67 @@
+{% extends "layout.html" %}        
+{% block body %}
+<!-- JS Button
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script type="text/javascript">
+//<![CDATA[
+function showElement(id) {
+    document.getElementById(id).style.visibility = 'visible';
+    document.getElementById(id).style.height = 'auto';
+    document.getElementById(id).style.overflow = 'visible';
+}
+function hideElement(id) {
+    document.getElementById(id).style.visibility = 'hidden';
+    document.getElementById(id).style.height = '1px';
+    document.getElementById(id).style.overflow = 'hidden';
+}
+//]]>
+</script>
+
+<div class="row">
+
+    <!-- COLUMN
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <div class="one-half column">
+
+          <h4>Dear {{ session['username'] }},</h4>
+
+          <p><b><font color="red">Attention!</font></b> This is not a secure storage.
+          Anybody who knows an access path can access uploaded content.
+          Please don't upload confidential data.
+          Uploaded content will be automatically destroyed after 30 days without notification. </p>
+          <div id="agree_button">
+              <button class="button-primary" onclick="hideElement('agree_button'); showElement('agree'); return 0;">Agree</button>
+          </div>
+
+          <div id="agree" style="visibility: hidden; height: 1px; overflow: hidden;">
+              <form method="POST">
+                  Please provide short description for further reference:
+                  <textarea name="description" style="width: 100%" rows="5"></textarea>
+                  <br/>
+                  <div>
+                      <button type="submit" class="button-primary">Proceed</button>
+                  </div>
+              </form>
+          </div>
+    </div>
+
+    <!-- COLUMN
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <div class="one-half column">
+        {% if entries %}
+        <h4><a name="My folders"></a>My folders</h4>
+        {% endif %}
+
+        {% for entry in entries %}
+            <div>
+              <span><a href="instructions/{{ entry.share }}/">
+                  <img src="/static/images/folder-16x16.png" width=\16" height="16" border="0" align="center">{{ entry.share }}</a>
+              </span><br/>
+              <font color="green">Created at {{ entry.created }}, Will be destroyed after {{ entry.destroyed }} days. </font>
+                <div class="desc">{{ entry.description }}</div>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

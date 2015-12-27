@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>File Exchange</title>
+  <meta name="description" content="File Exchange">
+  <meta name="author" content="Andrei Skopenko">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/skeleton.css') }}">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+</head>
+<body>
+<style type="text/css">
+div.flash  {
+    background-color: #e4ffe0;
+    margin-bottom:  10pt;
+    padding-left: 10pt;
+    padding-top: 5pt;
+    padding-bottom: 5pt;
+}
+</style>
+
+  <!-- Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <div class="container">
+
+      <!-- ROW
+      –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <div class="row">
+
+            <!-- COLUMN
+            –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+            <div class="one-first columns">
+                <h1 class="remove-bottom" style="margin-top: 40px"><a href="/">File Exchange</a></h1>
+                <h5>Corporate file exchange service</h5>
+            </div>
+        </div>
+
+      <!-- ROW
+      –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+      {% for message in get_flashed_messages() %}
+        <div class="row">
+
+            <!-- COLUMN
+            –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+            <div class="one-first columns flash">{{ message }}</div>
+        </div>
+      {% endfor %}
+
+      <!-- ROW
+      –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+      {% block body %}{% endblock %}
+    </div>
+</body>
+</html>

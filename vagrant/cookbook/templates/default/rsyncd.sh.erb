@@ -1,0 +1,42 @@
+#!/bin/bash
+
+PATH=/usr/bin:/bin:/usr/sbin:/sbin
+
+[ -d <%= @data_path %> ] || exit 1
+
+if [ -f <%= @rsyncd_conf %> ]; then
+    find <%= @data_path %> -maxdepth 0 -newer <%= @rsyncd_conf %> -printf "rebuild\n" |\
+        grep -q '^rebuild$' || exec rsync --config=<%= @rsyncd_conf %> --daemon
+fi
+
+[ -x /bin/mktemp -a "x$EUID" = "x0" ] || exit 1
+
+TF=`/bin/mktemp`
+
+cat >"$TF" <<EOF
+uid = <%= @user %>
+gid = <%= @group %>
+max connections = 32
+use chroot = yes
+transfer logging = yes
+log file = <%= @log_path %>/rsyncd.log
+lock file = <%= @log_path %>/rsyncd.lock
+refuse options = c xattr
+incoming chmod = u=rwX,go=rX
+list = no
+read only = no
+EOF
+
+find <%= @data_path %> -maxdepth 1 -type d -name '[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]*' |\
+while read D; do
+[ -z "$D" ] && continue
+[ "$D" = "<%= @data_path %>" ] && continue
+B=`basename "$D"`
+echo "[$B]"
+echo "path = $D"
+done >>"$TF"
+
+chmod 0644 "$TF"
+mv -f "$TF" <%= @rsyncd_conf %>
+
+exec rsync --config=<%= @rsyncd_conf %> --daemon

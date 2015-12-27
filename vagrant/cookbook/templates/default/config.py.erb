@@ -1,0 +1,32 @@
+# config.py
+
+DEBUG = False
+SECRET_KEY = 'my_secret_key_for_session_encrypt'
+
+HOMEDIR = '<%= @data_path %>'
+UID = <%= @uid %>
+GID = <%= @gid %>
+RO_GID = <%= @ro_gid %>
+
+DATABASE = '<%= @db_path %>'
+
+DESTROY_TIMEOUT = 30
+
+# allowed options 'basic'/'crowd'
+AUTH='basic'
+# crowd
+AUTH_CROWD_URL = 'https://crowd.domain.com/crowd/'
+AUTH_CROWD_USER = 'user'
+AUTH_CROWD_PWD = 'password'
+# basic
+AUTH_BASIC_FILE = '<%= @auth_basic_file %>'
+# email settings
+MAIL_SERVER = 'localhost'
+DEFAULT_MAIL_SENDER = 'test@domain.com'
+
+MAIL_MESSAGE = '''
+Dear %(username)s,
+
+Shared folder %(hash)s with description '%(description)s' has been created.
+Please find access instructions at %(host)sinstructions/%(hash)s/.
+'''
