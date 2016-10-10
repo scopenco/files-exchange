@@ -32,11 +32,60 @@ from crowd import CrowdServer
 from flask import Flask, request, render_template, \
     Response, url_for, session, redirect, g, flash, escape
 from flask_mail import Mail, Message
+import ldap
 
 mail = Mail()
 app = Flask(__name__)
 app.config.from_object('config')
 mail.init_app(app)
+
+
+def ldap_auth(username, password):
+    ''' base auth for LDAP backend '''
+
+    conn = ldap.initialize(app.config['LDAP_URI'])
+    conn.set_option(ldap.OPT_REFERRALS, 0)
+
+    ldap_filter = (
+        '(&'
+        '(objectClass=user)'
+        '({LDAP_USERNAME_ATTRIBUTE}={username})'
+        ')'
+    ).format(username=username.split('@')[0], **app.config)
+
+    try:
+        conn.simple_bind_s(username, password)
+
+        username_attr = app.config['LDAP_USERNAME_ATTRIBUTE']
+
+        res = conn.search_ext_s(
+            app.config['LDAP_BASE'],
+            ldap.SCOPE_SUBTREE,
+            ldap_filter,
+            sizelimit=1000,
+            timeout=10,
+            attrlist=(username_attr, 'cn', 'mail')
+        )
+
+        for dn, attrs in res:
+            if dn and attrs:
+                try:
+                    session['username'] = attrs['cn'][0]
+                    session['email'] = attrs['mail'][0]
+                    return True
+                except KeyError:
+                    app.logger.error(
+                        'No email key in ldap attributes for %s' % username)
+
+        app.logger.info('user info in %(username)s / %(email)s' % session)
+        return True
+    except ldap.INVALID_CREDENTIALS:
+        app.logger.error('Login failed for user %r', username)
+        return False
+    except ldap.LDAPError:
+        app.logger.error('LDAP error, ldap_user=%s', username, exc_info=True)
+        return False
+
 
 def connect_db():
     ''' Connects to the specific database. '''
@@ -98,6 +147,9 @@ def check_auth(username, password):
     # check basic auth
     if app.config['AUTH'] == 'basic':
         return basic_auth(username, password)
+    # check basic auth
+    if app.config['AUTH'] == 'ldap':
+        return ldap_auth(username, password)
 
 
 def authenticate():
@@ -125,7 +177,7 @@ def require_auth(func):
 def send_email(share_hash, desc):
     ''' send notification to user '''
     app.logger.debug('sending email to %s' % session['email'])
-    content = {'username':session['username'],
+    content = {'username': session['username'],
                'hash': share_hash,
                'description': desc,
                'host': request.url_root}

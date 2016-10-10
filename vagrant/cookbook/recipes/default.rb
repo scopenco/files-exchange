@@ -30,7 +30,8 @@ end
 
 # application
 include_recipe 'yum-ius'
-package ['python27', 'python27-pip', 'python27-setuptools', 'python27-mod_wsgi']
+package ['gcc', 'openldap-devel']
+package ['python27', 'python27-pip', 'python27-setuptools', 'python27-mod_wsgi', 'python27-devel']
 python_pip 'flask' do
   version '0.10.1'
 end
@@ -39,6 +40,7 @@ python_pip 'crowd' do
 end
 python_pip 'flask-mail'
 python_pip 'passlib'
+python_pip 'python-ldap'
 
 package ['rsync']
 

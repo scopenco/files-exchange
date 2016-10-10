@@ -23,6 +23,10 @@ AUTH_BASIC_FILE = '<%= @auth_basic_file %>'
 # email settings
 MAIL_SERVER = 'localhost'
 DEFAULT_MAIL_SENDER = 'test@domain.com'
+# OpenLDAP/ActiveDirectory settings
+LDAP_URI = 'ldap://ldap.mydomain.com:389'
+LDAP_BASE = 'DC=mydomain,DC=com'
+LDAP_USERNAME_ATTRIBUTE = 'sAMAccountName'
 
 MAIL_MESSAGE = '''
 Dear %(username)s,
