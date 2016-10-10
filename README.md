@@ -3,6 +3,10 @@
 ## Desciprion
 
 This service usefull for situation when you need to upload/download files with popular protocols like rsync, scp, ftp, webdav.
+Supports auth backends:
+* Htpasswd file
+* OpenLDAP/ActiveDirectory
+* Atlassian Crowd
 
 ## Requirments
 
@@ -10,6 +14,7 @@ This service usefull for situation when you need to upload/download files with p
 * Flask==0.10.1
 * Flask-Mail==0.9.1
 * passlib==1.6.5
+* python-ldap==2.4.27
 
 ## Usage
 
