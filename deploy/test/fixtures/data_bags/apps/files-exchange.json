@@ -1,0 +1,7 @@
+{
+  "id": "files-exchange",
+  "htpasswd": {
+    "test01": "test01",
+    "test02": "test02"
+  }
+}

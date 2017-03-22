@@ -12,12 +12,12 @@ CustomLog <%= node['apache']['log_dir'] %>/<%= node['apache']['access_log'] %> c
 DocumentRoot "<%= @data_path %>"
 
 <Directory "/">
-    Options None
+    Options FollowSymLinks
     AllowOverride None
 </Directory>
 
 <Directory "<%= @data_path %>">
-    Options Indexes FollowSymLinks
+    Options Indexes
     AllowOverride None
     Dav On
     ForceType application/octet-stream
