@@ -20,27 +20,37 @@ This service useful for situation when you need to upload/download files with po
 
 Use http://__IP__/ to access to File Exchange.
 
-## Install
+## Deployment
 
-* Start Vagrant
-
-```bash
-git clone https://github.com/scopenco/fileexchange.git
-cd vagrant
-vagrant up
-vagrant ssh
+Get the latest source code
 ```
+git clone https://github.com/scopenco/file-exchange.git
+```
+
+## Development
+
+Based in Vagrant.
+
+* Install Vagrant https://www.vagrantup.com/downloads.html
+* Install additional plugins `vagrant plugin install vagrant-berkshelf```
+* Create VM, source code will be mounted to /opt/file-exchange
+```bash
+cd deploy
+vagrant up
+```
+### TestKithen
+
 
 * Init sqlite schema
 
 ```bash
-sqlite3 /opt/filexchange/database.db < /opt/filexchange/schema.sql
+sqlite3 /opt/files-exchange/database.db < /opt/files-exchange/schema.sql
 ```
 
 * Create htpasswd file and activate Basic Auth
 
 ```bash
-htpasswd -c /opt/filexchange/htpasswd test
+htpasswd -c /opt/files-exchange/htpasswd test
 ```
 
 ## Auth

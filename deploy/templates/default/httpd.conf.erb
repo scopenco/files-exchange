@@ -1,4 +1,4 @@
-LoadModule wsgi_module modules/python27-mod_wsgi.so
+LoadModule wsgi_module modules/mod_wsgi.so
 
 IndexOptions Charset=UTF-8 FancyIndexing SuppressColumnSorting SuppressIcon SuppressDescription VersionSort NameWidth=* HTMLTable
 IndexIgnore .??*
@@ -25,6 +25,7 @@ DocumentRoot "<%= @data_path %>"
     HeaderName /header.html
     ReadmeName /footer.html
     ErrorDocument 404 /404.html
+    Require all granted
 </Directory>
 
 Alias /header.html <%= @app_path %>/static/header.html
@@ -32,8 +33,7 @@ Alias /footer.html <%= @app_path %>/static/footer.html
 Alias /404.html <%= @app_path %>/static/404.html
 Alias /static/ <%= @app_path %>/static/
 <directory "<%= @app_path %>/static">
-    order allow,deny
-    allow from all
+    Require all granted
 </directory>
 
 WSGIDaemonProcess fileshare user=<%= @user %> group=<%= @group %> threads=5
@@ -41,8 +41,7 @@ WSGIScriptAlias /fe <%= @app_path %>/wsgi.py
 WSGIPassAuthorization On
 <directory "<%= @app_path %>">
     WSGIProcessGroup fileshare
-    order allow,deny
-    allow from all
+    Require all granted
 </directory>
 
 RewriteMap lower int:tolower

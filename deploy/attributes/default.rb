@@ -1,15 +1,11 @@
 #
-# Cookbook Name:: cookbook
+# Cookbook Name:: env-filesexchange
 # Attribute:: default
 #
 # Copyright (C) 2015 Parallels IP Holdings GmbH
 #
 # All rights reserved - Do Not Redistribute
 #
-
-# IUS repo
-default['yum']['ius-archive']['managed'] = true
-default['yum']['ius-archive']['enabled'] = true
 
 # Python
 default['python']['pip_location'] = '/usr/bin/pip2.7'
@@ -19,13 +15,13 @@ default['fileexchange']['rsyncd']['conf_generator'] = '/usr/bin/rsyncd.sh'
 default['fileexchange']['rsyncd']['log_dir'] = '/var/log/rsync'
 
 default['fileexchange']['data_dir'] = '/opt/data'
-default['fileexchange']['app_dir'] = '/opt/filexchange'
+default['fileexchange']['app_dir'] = '/opt/files-exchange'
 default['fileexchange']['group'] = 'fs'
 default['fileexchange']['user'] = 'fs'
 default['fileexchange']['gid'] = 498
 default['fileexchange']['uid'] = 498
-default['fileexchange']['db_path'] = '/opt/filexchange/database.db'
-default['fileexchange']['auth_basic_file'] = '/opt/filexchange/htpasswd'
+default['fileexchange']['db_path'] = '/opt/files-exchange/database.db'
+default['fileexchange']['auth_basic_file'] = '/opt/files-exchange//htpasswd'
 
 default['apache']['gid'] = 48
 
@@ -59,7 +55,7 @@ default['vsftpd']['config'] = {
   'max_clients' => '100'
 }
 
-default['apache']['servertokens']    = 'ProductOnly'
+default['apache']['servertokens'] = 'ProductOnly'
 default['apache']['ext_status'] = true
 default['apache']['status_allow_list'] = '127.0.0.1 ::1'
 default['apache']['prefork']['startservers'] = 1
