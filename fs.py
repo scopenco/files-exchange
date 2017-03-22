@@ -91,6 +91,7 @@ def connect_db():
     ''' Connects to the specific database. '''
     rv_conn = sqlite3.connect(app.config['DATABASE'])
     rv_conn.row_factory = sqlite3.Row
+    app.logger.info('connect to %s' % app.config['DATABASE'])
     return rv_conn
 
 
