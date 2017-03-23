@@ -85,4 +85,22 @@ knife bootstrap fe.domain.com --environment myenv --run-list "recipe[env-files-e
 Please read cookbook [README.md](https://github.com/scopenco/files-exchange/blob/master/deploy/README.md) for cookbook attributes details.
 
 # AWS deployment
-TODO
+
+Based on [Terraform](https://www.terraform.io).
+
+Steps:
+* Download and Install Terraform (https://www.terraform.io/downloads.html)
+* Create ssh key pair, add private key to ssh-agent
+* Define AWS credentials
+```bash
+$ export AWS_ACCESS_KEY_ID="anaccesskey"
+$ export AWS_SECRET_ACCESS_KEY="asecretkey"
+```
+* Change settings in `variables.tf` conform your Chef Server credentials
+* Deploy new EC2 instance and provision with Chef based on Chef Server
+```bash
+cd deploy/tf_aws
+terraform plan
+terraform apply
+```
+After apply done you will get production ready service File Exchange. Enjoy!
