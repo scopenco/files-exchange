@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: env-filesexchange
-# Recipe:: default
+# Recipe:: _iptables.rb
 #
 # Copyright 2016-2017 Andrei Skopenko
 #
@@ -16,25 +16,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# remove unused local packages in PD
-package ['rpcbind', 'nfs-utils'] do
-  action :remove
+include_recipe 'simple_iptables::redhat'
+
+simple_iptables_rule 'web' do
+  rule '-p tcp -m multiport --dport 80,443 -m conntrack --ctstate NEW'
+  jump 'ACCEPT'
 end
 
-# instal ops tools
-package ['psutils', 'vim-enhanced', 'telnet', 'lsof']
+simple_iptables_rule 'rsync' do
+  rule '-p tcp -m multiport --dport 873 -m conntrack --ctstate NEW'
+  jump 'ACCEPT'
+end
 
-# configure apache
-include_recipe 'env-files-exchange::_apache'
-
-# deploy app
-include_recipe 'env-files-exchange::_app'
-
-# configure ftp
-include_recipe 'env-files-exchange::_vsftpd'
-
-# configure rsync
-include_recipe 'env-files-exchange::_rsync'
-
-# configure iptables
-include_recipe 'env-files-exchange::_iptables'
+simple_iptables_rule 'ftp' do
+  rule '-p tcp -m multiport --dport 21 -m conntrack --ctstate NEW'
+  jump 'ACCEPT'
+end
