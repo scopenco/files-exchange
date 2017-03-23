@@ -20,39 +20,6 @@ This service useful for situation when you need to upload/download files with po
 
 Use http://__IP__/ to access to File Exchange.
 
-## Deployment
-
-Get the latest source code
-```
-git clone https://github.com/scopenco/file-exchange.git
-```
-
-## Development
-
-Based in Vagrant.
-
-* Install Vagrant https://www.vagrantup.com/downloads.html
-* Install additional plugins `vagrant plugin install vagrant-berkshelf```
-* Create VM, source code will be mounted to /opt/file-exchange
-```bash
-cd deploy
-vagrant up
-```
-### TestKithen
-
-
-* Init sqlite schema
-
-```bash
-sqlite3 /opt/files-exchange/database.db < /opt/files-exchange/schema.sql
-```
-
-* Create htpasswd file and activate Basic Auth
-
-```bash
-htpasswd -c /opt/files-exchange/htpasswd test
-```
-
 ## Auth
 
 Supported:
@@ -68,6 +35,44 @@ Set Atlassian Crowd credentials for authentication in config.py.
 
 Set OpenLDAP server and base dn in config.py.
 
+## Development & Deployment
+
+Based on [Vagrant](http://www.vagrantup.com/) with [Chef](https://www.chef.io/) provision.
+Please read deployment [README.md](https://github.com/scopenco/files-exchange/tree/master/deploy/README.md) for details.
+
+## TODO
+
+* add unit tests
+* switch to setuptools
+
+## Contributing
+
+1. Open Bug / Feature issue at [Dev Icinga]
+2. Fork the repository on Github
+3. Create a named feature branch (like `add_component_x`)
+4. Write your change
+5. Write tests for your change (if applicable)
+6. Run the tests (`rake`), ensuring they all pass
+7. Write new resource/attribute description to `README.md`
+8. Write description about changes to PR along with [Dev Icinga] issue #
+9. Submit a Pull Request using Github
+
 ## Authors
 
 * Author:: Andrei Skopenko (andrei@skopenko.net)
+
+## Copyright & License
+
+<pre>
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</pre>
