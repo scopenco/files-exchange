@@ -152,3 +152,15 @@ directory node['fileexchange']['data_dir'] do
   group 'root'
   mode 0o751
 end
+
+# configure base auth users
+app_info = data_bag_item('apps', 'files-exchange')
+raise 'Data bag item apps/files-exchange does not exist. For details see README.md file "Data bags" section.' unless app_info['id']
+
+template node['fileexchange']['auth_basic_file'] do
+  source 'htpasswd.erb'
+  variables(
+    users: app_info['htpasswd']
+  )
+  action :create
+end

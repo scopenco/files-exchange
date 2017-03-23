@@ -30,6 +30,21 @@ include_recipe 'apache2::mod_dav'
 include_recipe 'apache2::mod_dav_fs'
 include_recipe 'apache2::mod_wsgi'
 
+# create fe user/group
+group node['fileexchange']['group'] do
+  gid node['fileexchange']['gid']
+  action :create
+end
+
+user node['fileexchange']['user'] do
+  comment 'fileexchange user'
+  shell '/bin/bash'
+  home '/opt/data'
+  uid node['fileexchange']['uid']
+  gid node['fileexchange']['group']
+  action :create
+end
+
 template ::File.join(node['apache']['dir'], 'conf-available', 'fileexchange.conf') do
   source 'httpd.conf.erb'
   variables(
@@ -50,15 +65,4 @@ end
 directory node['apache']['run_dir'] do
   user node['apache']['user']
   group node['apache']['group']
-end
-
-app_info = data_bag_item('apps', 'files-exchange')
-raise 'Data bag item apps/files-exchange does not exist. For details see README.md file "Data bags" section.' unless app_info['id']
-
-template node['fileexchange']['auth_basic_file'] do
-  source 'htpasswd.erb'
-  variables(
-    users: app_info['htpasswd']
-  )
-  action :create
 end

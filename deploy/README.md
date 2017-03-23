@@ -15,6 +15,7 @@ The following cookbooks are direct dependencies because they're used for common 
 - [xinetd](https://supermarket.chef.io/cookbooks/xinetd)
 - [apache2](https://supermarket.chef.io/cookbooks/apache2)
 - [user](https://supermarket.chef.io/cookbooks/user)
+- [simple_iptables](https://supermarket.chef.io/cookbooks/simple_iptables)
 
 ### Platforms
 
