@@ -54,7 +54,31 @@ cmd = Mixlib::ShellOut.new("mountpoint #{node['fileexchange']['app_dir']}")
 is_shared_folder = cmd.run_command.stdout.include?('is a mountpoint')
 
 if is_shared_folder
-  db_file = ::File.join(node['fileexchange']['app_dir'], 'database.db')
+  directory ::File.join(node['fileexchange']['deploy_dir'], 'shared') do
+    mode 0o755
+    user node['fileexchange']['user']
+    group node['fileexchange']['group']
+    recursive true
+  end
+
+  template ::File.join(node['fileexchange']['app_dir'], 'config.py') do
+    mode 0o644
+    variables(
+      db_path: File.join(node['fileexchange']['deploy_dir'], 'shared', 'database.db'),
+      data_path: node['fileexchange']['data_dir'],
+      uid: node['fileexchange']['uid'],
+      gid: node['apache']['gid'],
+      ro_gid: node['fileexchange']['gid'],
+      auth_basic_file: node['fileexchange']['auth_basic_file']
+    )
+  end
+
+  template ::File.join(node['fileexchange']['app_dir'], 'wsgi.py') do
+    mode 0o644
+    variables(
+      app_path: node['fileexchange']['app_dir']
+    )
+  end
 else
 
   # deploy app
@@ -108,9 +132,9 @@ else
     notifies :restart, 'service[apache2]', :delayed
   end
 
-  db_file = ::File.join(node['fileexchange']['deploy_dir'], 'shared', 'database.db')
 end
 
+db_file = ::File.join(node['fileexchange']['deploy_dir'], 'shared', 'database.db')
 execute "sqlite3 #{db_file} < #{node['fileexchange']['app_dir']}/schema.sql" do
   creates db_file
   action :run

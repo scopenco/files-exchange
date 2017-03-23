@@ -24,11 +24,11 @@ end
 # instal ops tools
 package ['psutils', 'vim-enhanced', 'telnet', 'lsof']
 
-# deploy app
-include_recipe 'env-files-exchange::_app'
-
 # configure apache
 include_recipe 'env-files-exchange::_apache'
+
+# deploy app
+include_recipe 'env-files-exchange::_app'
 
 # configure ftp
 include_recipe 'env-files-exchange::_vsftpd'
