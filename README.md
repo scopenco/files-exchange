@@ -18,7 +18,7 @@ This service useful for situation when you need to upload/download files with po
 
 ## Usage
 
-Use http://__IP__/ (for Vagrant used port 8080) to access to File Exchange.
+Use http://__IP__/ (for Vagrant on VirtualBox use port 8080) to access to File Exchange.
 
 ## Auth
 

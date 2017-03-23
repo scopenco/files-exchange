@@ -51,7 +51,7 @@ Node attributes for this cookbook are logically separated into different files. 
 * `_rsync` - configure rsync as daemon
 * `_vsftpd` - configure vsftpd
 
-# Data bags
+## Data bags
 
 ```json
 {
@@ -63,7 +63,7 @@ Node attributes for this cookbook are logically separated into different files. 
 }
 ```
 
-Data bag store htpasswd credentions. For production deployment should be used [encrypted data bags](https://docs.chef.io/data_bags.html#encrypt-a-data-bag-item).
+Data bag store htpasswd credentials. For production deployment should be used [encrypted data bags](https://docs.chef.io/data_bags.html#encrypt-a-data-bag-item).
 
 ## Authors
 
