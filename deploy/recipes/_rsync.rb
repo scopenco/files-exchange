@@ -24,7 +24,7 @@ template node['fileexchange']['rsyncd']['conf_generator'] do
     user: node['apache']['user'],
     group: node['apache']['group'],
     data_path: node['fileexchange']['data_dir'],
-    rsyncd_conf: node['fileexchange']['rsyncd']['conf_file'],
+    rsyncd_conf: '/etc/rsyncd.conf',
     log_path: node['fileexchange']['rsyncd']['log_dir']
   )
 end
