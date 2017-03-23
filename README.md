@@ -38,7 +38,7 @@ Set OpenLDAP server and base dn in config.py.
 ## Development & Deployment
 
 Based on [Vagrant](http://www.vagrantup.com/) with [Chef](https://www.chef.io/) provision.
-Please read deployment [README.md](https://github.com/scopenco/files-exchange/tree/master/deploy/README.md) for details.
+Please read [DEPLOYMENT.md](https://github.com/scopenco/files-exchange/blob/master/DEPLOYMENT.md) for details.
 
 ## TODO
 

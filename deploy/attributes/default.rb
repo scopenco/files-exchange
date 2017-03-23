@@ -22,4 +22,3 @@ default['fileexchange']['auth_basic_file'] = '/opt/files-exchange/htpasswd'
 # rsync settings
 default['fileexchange']['rsyncd']['conf_generator'] = '/usr/bin/rsyncd.sh'
 default['fileexchange']['rsyncd']['log_dir'] = '/var/log/rsync'
-
