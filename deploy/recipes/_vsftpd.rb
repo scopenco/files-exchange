@@ -43,6 +43,6 @@ node.default['vsftpd']['config'] = {
   'anon_umask' => '022',
   'no_anon_password' => 'YES',
   'one_process_model' => 'YES',
-  'max_clients' => '100'
+  'max_clients' => '100',
 }
 include_recipe 'vsftpd'

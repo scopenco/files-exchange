@@ -26,11 +26,10 @@ node.default['apache']['prefork']['minspareservers'] = 1
 node.default['apache']['prefork']['maxspareservers'] = 3
 include_recipe 'apache2'
 include_recipe 'apache2::mod_rewrite'
-include_recipe 'apache2::mod_ssl'
 include_recipe 'apache2::mod_dav'
 include_recipe 'apache2::mod_dav_fs'
+include_recipe 'apache2::mod_wsgi'
 
-package 'mod_wsgi'
 template ::File.join(node['apache']['dir'], 'conf-available', 'fileexchange.conf') do
   source 'httpd.conf.erb'
   variables(

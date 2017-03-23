@@ -8,7 +8,7 @@
 #
 
 # Python
-#default['python']['pip_location'] = '/usr/bin/pip2.7'
+# default['python']['pip_location'] = '/usr/bin/pip2.7'
 
 default['fileexchange']['repo'] = 'https://github.com/scopenco/files-exchange.git'
 default['fileexchange']['revision'] = 'HEAD'
