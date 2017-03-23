@@ -8,8 +8,6 @@ issues_url 'https://github.com/scopenco/files-exchange/issues'
 source_url 'https://github.com/scopenco/files-exchange'
 
 depends 'yum-epel'
-depends 'sudo'
-depends 'yum-ius'
 depends 'python'
 depends 'vsftpd'
 depends 'xinetd'
